@@ -8,5 +8,6 @@ def fibosum(n):
         x = y
         y = fn
     return fibonacci_list
+
 print("Sum of the first 5 Fibonacci series: ", sum(fibosum(5)))
 print("Sum of the first 10 Fibonacci series: ", sum(fibosum(10)))
