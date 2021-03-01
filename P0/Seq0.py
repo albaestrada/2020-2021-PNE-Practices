@@ -34,6 +34,21 @@ def seq_count(seq):
         gene_dict[d] += 1
     return gene_dict
 
+def seq_reverse(seq):
+    inverse_seq = seq[ ::-1]
+    return inverse_seq
+
+def seq_complement(seq):
+    for bases in seq:
+        if bases == "A":
+            bases = "T"
+        elif bases == "C":
+            bases = "G"
+        elif bases == "G":
+            bases = "C"
+        else:
+            bases = "A"
+    return seq
 
 
 
