@@ -22,6 +22,7 @@ for gene in gene_list:
             cont_c += 1
         else:
             cont_g += 1
+
     if cont_a > cont_g and cont_a > cont_t and cont_a > cont_c:
         maximum = "A"
     elif cont_c > cont_g and cont_c > cont_t and cont_c > cont_a:
