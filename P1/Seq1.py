@@ -40,7 +40,18 @@ class Seq:
 
     def len(self):
         """Calculate the length of the sequence"""
-        if self.strbases == "NULL" or self.strbases == "Error":
+        if self.strbases == "NULL" or self.strbases == "ERROR":
             return 0
         else:
             return len(self.strbases)
+
+    def count_base(self, base):
+        if self.strbases == "NULL" or self.strbases == "ERROR":
+            return 0
+        return self.strbases.count(base)
+
+    def count(self):
+        dict_bases = {}
+        for bases in ["A", "C", "G", "T"]:
+            dict_bases[bases] = self.count_base(bases)
+        return dict_bases
