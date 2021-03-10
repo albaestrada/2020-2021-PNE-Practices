@@ -1,8 +1,8 @@
 from Seq1 import Seq
 
-def print_count_bases(bases):
-    for base in ["A", "C", "T", "G"]:
-        print(f"{base}: {bases.count_base(base)}  ", end="")
+def print_count_bases(sequence):
+    for base in Seq.VALID_BASES:
+        print(f"{base}: {sequence.count_base(base)}  ", end="")
     print()
 
 

@@ -1,13 +1,16 @@
 import termcolor
 
 class Seq:
+    NULL_SEQUENCE = "NULL"
+    INVALID_SEQUENCE = "ERROR"
+    VALID_BASES = ["A", "C", "G", "T"]
     """A class for representing sequences"""
 
-    def __init__(self, strbases="NULL"):
+    def __init__(self, strbases=NULL_SEQUENCE):
         #Initialize the sequence with the value
         #Passed as argument when creating the object
 
-        if strbases == "NULL":
+        if strbases == Seq.NULL_SEQUENCE:
             print("NULL Seq created")
             self.strbases = strbases
         else:
@@ -15,7 +18,7 @@ class Seq:
             if self.is_valid_sequence():
                 print("New sequence created!")
             else:
-                self.strbases = "ERROR"
+                self.strbases = Seq.INVALID_SEQUENCE
                 print("INCORRECT Sequence detected")
 
 
@@ -40,18 +43,44 @@ class Seq:
 
     def len(self):
         """Calculate the length of the sequence"""
-        if self.strbases == "NULL" or self.strbases == "ERROR":
+        if self.strbases == Seq.NULL_SEQUENCE or self.strbases == Seq.INVALID_SEQUENCE:
             return 0
         else:
             return len(self.strbases)
 
     def count_base(self, base):
-        if self.strbases == "NULL" or self.strbases == "ERROR":
+        if self.strbases == Seq.NULL_SEQUENCE or self.strbases == Seq.INVALID_SEQUENCE:
             return 0
         return self.strbases.count(base)
 
     def count(self):
         dict_bases = {}
-        for bases in ["A", "C", "G", "T"]:
+        for bases in Seq.VALID_BASES:
             dict_bases[bases] = self.count_base(bases)
         return dict_bases
+
+    def reverse(self):
+        if self.strbases == Seq.NULL_SEQUENCE:
+            return "NULL"
+        elif self.strbases == Seq.INVALID_SEQUENCE:
+            return "ERROR"
+        else:
+            return self.strbases[::-1]
+
+    def complement(self):
+        complement = ""
+        if self.strbases == Seq.NULL_SEQUENCE:
+            return "NULL"
+        elif self.strbases == Seq.INVALID_SEQUENCE:
+            return "ERROR"
+        else:
+            for b in self.strbases:
+                if b == "A":
+                    complement += "T"
+                elif b == "C":
+                    complement += "G"
+                elif b == "G":
+                    complement += "C"
+                else:
+                    complement += "A"
+            return complement
