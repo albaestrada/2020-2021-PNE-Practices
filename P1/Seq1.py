@@ -1,4 +1,5 @@
 import termcolor
+from pathlib import Path
 
 class Seq:
     NULL_SEQUENCE = "NULL"
@@ -84,3 +85,13 @@ class Seq:
                 else:
                     complement += "A"
             return complement
+
+    @staticmethod
+    def take_out_first_line(seq):
+        return seq[seq.find("\n") + 1:].replace("\n", "")
+
+    def read_fasta(self, filename):
+        self.strbases = Seq.take_out_first_line(Path(filename).read_text())
+
+
+

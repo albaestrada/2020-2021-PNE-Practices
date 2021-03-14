@@ -1,7 +1,7 @@
 from Seq1 import Seq
 
 
-print("----- | Exercise 7 | ------")
+print("----- | Exercise 8 | ------")
 s1 = Seq()
 s2 = Seq("ACTGA")
 s3 = Seq("Invalid Sequence")
