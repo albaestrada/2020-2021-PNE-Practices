@@ -1,4 +1,5 @@
 import socket
+import termcolor
 
 class Client:
     def __init__(self, ip, port):
@@ -34,3 +35,18 @@ class Client:
         s.close()
         # Return the response
         return "From server: " + response
+
+    def debug_talk(self, msg):
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.connect((self.ip, self.port))
+        message=("To server: ", msg)
+        termcolor.cprint(message, "blue")
+        s.send(str.encode(msg))
+        response = s.recv(2048).decode("utf-8")
+        s.close()
+        resp=("From server: " + response)
+        termcolor.cprint(resp, "yellow")
+
+
+
+
