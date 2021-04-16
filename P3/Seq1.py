@@ -49,15 +49,26 @@ class Seq:
         else:
             return len(self.strbases)
 
-    def count_base(self, base):
+    def count_base(self):
+        a, c, g, t = 0, 0, 0, 0
         if self.strbases == Seq.NULL_SEQUENCE or self.strbases == Seq.INVALID_SEQUENCE:
-            return 0
-        return self.strbases.count(base)
+            return a, c, g, t
+        else:
+            for b in self.strbases:
+                if b == "A":
+                    a += 1
+                elif b == "C":
+                    c += 1
+                elif b == "G":
+                    g += 1
+                else:
+                    t += 1
+            return a, c, g, t
 
     def count(self):
         dict_bases = {}
         for bases in Seq.VALID_BASES:
-            dict_bases[bases] = self.count_base(bases)
+            dict_bases[bases] = self.count_base()
         return dict_bases
 
     def reverse(self):
@@ -94,4 +105,12 @@ class Seq:
         self.strbases = Seq.take_out_first_line(Path(filename).read_text())
 
 
+    def percentage(self):
+        a, c, g, t = self.count_base()
+        percentage_a = (a / (c + g + t)) * 100
+        percentage_c = (c / (a + g + t)) * 100
+        percentage_g = (g / (c + a + t)) * 100
+        percentage_t = (t / (c + g + a)) * 100
+        result = "\nA: " + str(a) + "(" + str(round(percentage_a, 2)) + "%" + "\nC: " + str(c) + "(" + str(round(percentage_c, 2)) + "\nG: " + str(g) + "(" + str(round(percentage_g, 2)) + "\nT: " + str(t) + "(" + str(round(percentage_t, 2))
+        return result
 

@@ -7,7 +7,8 @@ class Client:
         self.ip = ip
         self.port = port
 
-    def ping(self):
+    @staticmethod
+    def ping():
         print("OK")
 
     def advanced_ping(self):

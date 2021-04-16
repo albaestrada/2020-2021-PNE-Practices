@@ -11,30 +11,32 @@ def format_command(command):
     return command.replace("\n", "").replace("\r", "")
 
 def ping(cs):
-    print_colored("PING command", "green")
+    print_colored("PING command", "yellow")
     response = "OK"
     cs.send(response.encode())
     cs.close()
 
 
 def get(cs, n, SEQUENCES_LIST):
-    termcolor.cprint("GET", "green")
+    termcolor.cprint("GET", "yellow")
     seq = SEQUENCES_LIST[n]
     termcolor.cprint(f"{seq}\n", 'white')
     cs.send(f"{seq}".encode())
     cs.close()
 
 def info(cs, seq):
-    termcolor.cprint("INFO", "green")
+    termcolor.cprint("INFO", "yellow")
     seq = Seq(seq)
     len_seq = Seq.len(seq)
     count_seq = Seq.count(seq)
-    termcolor.cprint(f"{len_seq}, {count_seq}", 'white')
-    cs.send(f"{len_seq}, {count_seq}".encode())
+
+    response = "Sequence: " + str(seq) + "\nTotal length: " + str(len_seq) + seq.percentage()
+    print(response)
+    cs.send(response.encode())
     cs.close()
 
 def comp(cs, seq):
-    termcolor.cprint("COMP", "green")
+    termcolor.cprint("COMP", "yellow")
     seq = Seq(seq)
     complement = Seq.complement(seq)
     termcolor.cprint(complement, "white")
@@ -42,7 +44,7 @@ def comp(cs, seq):
     cs.close()
 
 def rev(cs,seq):
-    termcolor.cprint("REV", "green")
+    termcolor.cprint("REV", "yellow")
     seq = Seq(seq)
     reverse = Seq.reverse(seq)
     termcolor.cprint(reverse, "white")
@@ -51,7 +53,7 @@ def rev(cs,seq):
 
 
 def gene(cs, filename):
-    termcolor.cprint("GENE", "green")
+    termcolor.cprint("GENE", "yellow")
     seq = Seq()
     seq.read_fasta(filename)
     termcolor.cprint(seq, "white")
