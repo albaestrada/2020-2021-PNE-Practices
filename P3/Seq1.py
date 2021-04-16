@@ -111,6 +111,6 @@ class Seq:
         percentage_c = (c / (a + g + t)) * 100
         percentage_g = (g / (c + a + t)) * 100
         percentage_t = (t / (c + g + a)) * 100
-        result = "\nA: " + str(a) + "(" + str(round(percentage_a, 2)) + "%" + "\nC: " + str(c) + "(" + str(round(percentage_c, 2)) + "\nG: " + str(g) + "(" + str(round(percentage_g, 2)) + "\nT: " + str(t) + "(" + str(round(percentage_t, 2))
+        result = "\nA: " + str(a) + "(" + str(round(percentage_a, 2)) + "%" + "\nC: " + str(c) + "(" + str(round(percentage_c, 2)) + "\nG: " + str(g) + "(" + str(round(percentage_g, 2)) + "\nT: " + str(t) + "(" + str(round(percentage_t, 2)) + ")"
         return result
 
