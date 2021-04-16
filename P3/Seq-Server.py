@@ -44,33 +44,39 @@ while True:
     # -- into a human-redeable string
     msg = msg_raw.decode()
     formatted_message = server_utils.format_command(msg)
+    formatted_message = formatted_message.split(" ")
 
-    if formatted_message == "PING":
-        server_utils.ping()
-
-        # -- Send a response message to the client
-        response = "OK"
-        # -- The message has to be encoded into bytes
-        cs.send(response.encode())
-        print(response)
-        cs.close()
-    elif formatted_message.starswith("GET"):
-        slices = msg.split(" ")
-        if len(slices) == 2 and slices[0] == "GET":
-            try:
-                n = int(slices[1])
-                if 0 <= n <= len(SEQUENCES_LIST):
-                    termcolor.cprint(f"GET", 'green')
-                    seq = SEQUENCES_LIST[n]
-                    termcolor.cprint(f"{seq}\n", 'white')
-                    cs.send(f"{seq}".encode())
-                    cs.close()
-            except ValueError:
-                pass
-
-
+    if len(formatted_message) == 1:
+        message = formatted_message[0]
     else:
-        response = "NOT AVAILABLE COMMAND"
-        cs.send(response.encode())
-    # -- Close the data sockets
-    cs.close()
+        message = formatted_message[0]
+        argument = formatted_message[1]
+
+    if message == "PING":
+        server_utils.ping(cs)
+
+    elif message == "GET":
+        n = int(formatted_message[1])
+        server_utils.get(cs, n, SEQUENCES_LIST)
+
+    elif message == "INFO":
+        seq = formatted_message[1]
+        server_utils.info(cs, seq)
+
+    elif message == "COMP":
+        seq = formatted_message[1]
+        server_utils.comp(cs, seq)
+
+    elif message == "REV":
+        seq = formatted_message[1]
+        server_utils.rev(cs, seq)
+
+    elif message == "GENE":
+        filename = f"{formatted_message[1]}.txt"
+        server_utils.gene(cs, filename)
+
+
+
+
+
+

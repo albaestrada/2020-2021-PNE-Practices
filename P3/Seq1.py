@@ -92,3 +92,6 @@ class Seq:
 
     def read_fasta(self, filename):
         self.strbases = Seq.take_out_first_line(Path(filename).read_text())
+
+
+
