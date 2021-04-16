@@ -54,6 +54,7 @@ while True:
 
     if message == "PING":
         server_utils.ping(cs)
+        print("OK!")
 
     elif message == "GET":
         n = int(formatted_message[1])

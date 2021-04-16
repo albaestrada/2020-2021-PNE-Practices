@@ -32,12 +32,12 @@ print(response)
 
 print("* Testing COMP...")
 print(f"COMP {seq0}")
-response = c.talk("COMP", seq0)
+response = c.talk(f"COMP {seq0}")
 print(response)
 
 print("* Testing REV...")
-print("REV", seq0)
-response = c.talk("REV", seq0)
+print(f"REV {seq0}")
+response = c.talk(f"REV {seq0}")
 print(response)
 
 print("* Testing GENE...")
