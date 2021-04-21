@@ -1,10 +1,17 @@
 import socket
 import termcolor
+import pathlib
 
 
 # -- Server network parameters
 IP = "127.0.0.1"
 PORT = 8080
+HTML_ASSETS = "./html/"
+
+def read_html_file(filename):
+    content = pathlib.Path(filename).read_text()
+    return content
+    
 
 
 def process_client(s):
@@ -21,7 +28,8 @@ def process_client(s):
 
     # -- The request line is the first
     req_line = lines[0]
-    path_name = req_line.split(" ")
+    path_name = req_line.split(" ")[1]
+    print("Resource requested: ", req_line)
 
     print("Request line: ", end="")
     termcolor.cprint(req_line, "green")
@@ -33,14 +41,36 @@ def process_client(s):
     # blank line
     # Body (content to send)
 
-    # This new contents are written in HTML language
-    body = """
-    """
+
     # -- Status line: We respond that everything is ok (200 code)
     status_line = "HTTP/1.1 200 OK\n"
 
     # -- Add the Content-Type header
     header = "Content-Type: text/html\n"
+
+    if path_name == "/":
+        body = body = read_html_file(HTML_ASSETS + "index.html")
+    elif "/info/" in path_name:
+        try:
+            body = read_html_file(HTML_ASSETS + path_name.split("/")[-1] + ".html")
+        except FileNotFoundError:
+            body = read_html_file(HTML_ASSETS + "error.html")
+    else:
+        body = read_html_file(HTML_ASSETS + "error.html")
+
+    """if path_name == "/info/A":
+        body = read_html_file(HTML_ASSETS + "A.html")
+    elif path_name == "/info/C":
+        body = read_html_file(HTML_ASSETS + "C.html")
+    elif path_name == "/info/G":
+        body = read_html_file(HTML_ASSETS + "G.html")
+    elif path_name == "/info/T":
+        body = read_html_file(HTML_ASSETS + "T.html")""" # WE CAN COMPRESS THIS IN TWO LINES
+
+
+
+
+
 
     # -- Add the Content-Length
     header += f"Content-Length: {len(body)}\n"
