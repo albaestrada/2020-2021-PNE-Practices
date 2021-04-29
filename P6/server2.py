@@ -1,10 +1,8 @@
 import http.server
 import socketserver
 import termcolor
-import pathlib
-import jinja2
 from urllib.parse import urlparse, parse_qs
-import server_utils
+import server_utils as su
 
 
 # Define the Server's port
@@ -35,12 +33,7 @@ BASES_INFORMATION = {
           }
 }
 
-def read_html_file(filename):
-    content = pathlib.Path(filename).read_text()
-    return content
-def read_template_html_file(filename):
-    content = jinja2.Template(pathlib.Path(filename).read_text())
-    return content
+GENES_LIST = ["ADA", "FRAT1", "FXN", "RNU6_269P", "U5"]
 
 
 # -- This is for preventing the error: "Port already in use"
@@ -72,17 +65,20 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
         context = {}
         if path_name == "/":
             context["n_sequences"] = len(SEQUENCES_LIST)
-            contents = read_template_html_file("./html/index.html").render(context=context)
+            context["genes_list"] = GENES_LIST
+            contents = su.read_template_html_file("./html/index.html").render(context=context)
         elif path_name == "/test":
-            contents = read_template_html_file("./html/test.html").render()
+            contents = su.read_template_html_file("./html/test.html").render()
         elif path_name == "/ping":
-            contents = read_template_html_file("./html/ping.html").render()
+            contents = su.read_template_html_file("./html/ping.html").render()
         elif path_name == "/get":
             number_sequence = arguments["sequence"][0]
-            server_utils.get(cs, n, SEQUENCES_LIST)
-
+            contents = su.get(number_sequence, SEQUENCES_LIST)
+        elif path_name == "/gene":
+            gene = arguments["gene"][0]
+            contents = su.gene(gene)
         else:
-            contents = read_template_html_file("./html/error.html").render()
+            contents = su.read_template_html_file("./html/error.html").render()
 
         # Generating the response message
         self.send_response(200)  # -- Status line: OK!

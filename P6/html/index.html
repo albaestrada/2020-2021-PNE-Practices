@@ -22,5 +22,26 @@
     </select>
     <input type="submit" value="GET">
   </form>
+  <hr>
+    <form action="gene" method="get">
+      Get a gene. Select the name:
+    <select name="gene">
+      {% for n in context.genes_list %}
+      <option value="{{n}}">{{n}}</option>
+      {% endfor %}
+    </select>
+    <input type="submit" value="GENE">
+  </form>
+  <hr>
+      <form action="operation" method="get">
+        Write a sequence: <input type="text" name="sequence">
+        <br>
+        Select operation:
+           <input type="radio" name="calculation" value="Info"> Info
+        <input type="radio" name="calculation" value="Comp"> Comp
+        <input type="radio" name="calculation" value="Rev"> Rev
+        <br>
+    <input type="submit" value="OPERATE!">
+  </form>
   </body>
 </html>
