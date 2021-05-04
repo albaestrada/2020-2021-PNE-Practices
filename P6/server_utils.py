@@ -36,17 +36,15 @@ def get(n, SEQUENCES_LIST):
 
 def info(sequence):
     seq = Seq(sequence)
-    result = f"Total length: {seq.len()}<br><br>"
-    for base, count in seq.count().items():
-        result += f"{base}: {count} ({seq.percentage()}<br><br>"
+    result = "\nTotal length: " + str(seq.len()) + seq.percentage()
     context = {
         "sequence": seq,
-        "operation": "info",
+        "operation": info,
         "result": result
     }
-
     contents = read_template_html_file("./html/operate.html").render(context=context)
     return contents
+
 
 
 def comp(sequence):
