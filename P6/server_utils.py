@@ -36,9 +36,9 @@ def get(n, SEQUENCES_LIST):
 
 def info(sequence):
     seq = Seq(sequence)
-    result = Seq.len(seq)
+    result = f"Total length: {seq.len()}<br><br>"
     for base, count in seq.count().items():
-        result += f"{base}: {count} ({seq.percentage(base)}%)<br><br>"
+        result += f"{base}: {count} ({seq.percentage()}<br><br>"
     context = {
         "sequence": seq,
         "operation": "info",

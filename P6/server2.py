@@ -80,9 +80,9 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
         elif path_name == "/operation":
             sequence = arguments["sequence"][0]
             operation = arguments["calculation"][0]
-            if operation == "info":
+            if operation == "Info":
                 contents = su.info(sequence)
-            elif operation == "comp":
+            elif operation == "Comp":
                 contents = su.comp(sequence)
             else:
                 contents = su.rev(sequence)
