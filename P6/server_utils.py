@@ -1,7 +1,9 @@
-import termcolor
 from Seq1 import Seq
 import pathlib
 import jinja2
+
+
+
 
 def print_colored(message, color):
     import termcolor
@@ -9,12 +11,15 @@ def print_colored(message, color):
     colorama.init(strip="False")
     print(termcolor.colored(message, color))
 
+
 def format_command(command):
     return command.replace("\n", "").replace("\r", "")
+
 
 def read_template_html_file(filename):
     content = jinja2.Template(pathlib.Path(filename).read_text())
     return content
+
 
 def ping(cs):
     print_colored("PING command", "yellow")
@@ -33,7 +38,6 @@ def get(n, SEQUENCES_LIST):
     return contents
 
 
-
 def info(sequence):
     seq = Seq(sequence)
     result = "\nTotal length: " + str(seq.len()) + seq.percentage()
@@ -46,7 +50,6 @@ def info(sequence):
     return contents
 
 
-
 def comp(sequence):
     seq = Seq(sequence)
     context = {
@@ -57,6 +60,7 @@ def comp(sequence):
 
     contents = read_template_html_file("./html/operate.html").render(context=context)
     return contents
+
 
 def rev(sequence):
     seq = Seq(sequence)
@@ -80,11 +84,5 @@ def gene(seq_name):
     }
     contents = read_template_html_file("./html/gene.html").render(context=context)
     return contents
-
-
-
-
-
-
 
 
