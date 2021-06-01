@@ -104,7 +104,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
             contents = Path("./html/error.html").read_text()
 
         self.send_response(status)
-        self.send_header('Content-Type', 'text/html')
+        self.send_header('Content-Type', 'text/plain')
         self.send_header('Content-Length', str(len(contents.encode())))
         self.end_headers()
         self.wfile.write(contents.encode())
