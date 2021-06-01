@@ -295,7 +295,6 @@ def gene_calc(gene):
         
         if response.status == GOOD_REQUEST:
             data = json.loads(response.read().decode("utf-8"))
-            print(data)
             try:
                 bases = data['seq']
                 seq = Seq(bases)
