@@ -191,25 +191,31 @@ DICT_GENES = {
     "KDR": "ENSMUSG00000062960",
     "ANK2": "ENSG00000145362"
 }
-
-
-def gene_seq(gene):
+def error(gene):
     if gene in DICT_GENES:
         no_error = True
         id = DICT_GENES[gene]
     else:
         no_error = False
         id = ""
+    return no_error, id
 
+def connection(url):
+    connection = http.client.HTTPConnection(SERVER)
+    connection.request("GET", url)
+    response = connection.getresponse()
+    status = GOOD_REQUEST
+    return response, status
+
+def gene_seq(gene):
+    no_error = error(gene)[0]
+    id = error(gene)[1]
     if no_error:
         endpoint = '/sequence/id/'
         argument = '?content-type=application/json'
         url = endpoint + id + argument
-
-        connection = http.client.HTTPConnection(SERVER)
-        connection.request("GET", url)
-        response = connection.getresponse()
-        status = GOOD_REQUEST
+        response = connection(url)[0]
+        status = connection(url)[1]
 
         if response.status == GOOD_REQUEST:
             data = json.loads(response.read().decode("utf-8"))
@@ -235,22 +241,16 @@ def gene_seq(gene):
 
 
 def gene_info(gene):
-    if gene in DICT_GENES:
-        no_error = True
-        id = DICT_GENES[gene]
-    else:
-        no_error = False
-        id = ""
+    no_error = error(gene)[0]
+    id = error(gene)[1]
 
     if no_error:
         endpoint = '/sequence/id/'
         argument = '?feature=gene;content-type=application/json'
         url = endpoint + id + argument
+        response = connection(url)[0]
+        status = connection(url)[1]
 
-        connection = http.client.HTTPConnection(SERVER)
-        connection.request("GET", url)
-        response = connection.getresponse()
-        status = GOOD_REQUEST
         if response.status == GOOD_REQUEST:
             data = json.loads(response.read().decode("utf-8"))
             try:
@@ -283,22 +283,16 @@ def gene_info(gene):
 
 
 def gene_calc(gene):
-    if gene in DICT_GENES:
-        no_error = True
-        id = DICT_GENES[gene]
-    else:
-        no_error = False
-        id = ""
+    no_error = error(gene)[0]
+    id = error(gene)[1]
 
     if no_error:
         endpoint = '/sequence/id/'
         argument = '?content-type=application/json'
         url = endpoint + id + argument
-
-        connection = http.client.HTTPConnection(SERVER)
-        connection.request("GET", url)
-        response = connection.getresponse()
-        status = GOOD_REQUEST
+        response = connection(url)[0]
+        status = connection(url)[1]
+        
         if response.status == GOOD_REQUEST:
             data = json.loads(response.read().decode("utf-8"))
             print(data)
