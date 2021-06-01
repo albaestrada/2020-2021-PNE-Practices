@@ -91,7 +91,6 @@ SERVER = 'rest.ensembl.org'
 GOOD_REQUEST = 200
 BAD_REQUEST = 400
 
-
 def list_species(limit=None):
     endpoint = '/info/species'
     argument = '?content-type=application/json'
@@ -151,8 +150,9 @@ def karyotype(specie):
 
 def chromosome_length(specie, chromo):
     endpoint = '/info/assembly/'
-    parameters = f'{specie}?content-type=application/json'
-    url = endpoint + parameters
+    parameters = '?content-type=application/json'
+    specie = specie.replace(" ", "")
+    url = endpoint + specie + parameters
 
     connection = http.client.HTTPConnection(SERVER)
     connection.request("GET", url)
