@@ -122,13 +122,15 @@ def list_species(limit=None):
 
 def karyotype(specie):
     endpoint = '/info/assembly/'
-    argument = f'{specie}?content-type=application/json'
-    url = endpoint + argument
+    argument = '?content-type=application/json'
+    specie = specie.replace(" ", "")
+    url = endpoint + specie + argument
 
     connection = http.client.HTTPConnection(SERVER)
     connection.request("GET", url)
     response = connection.getresponse()
     status = GOOD_REQUEST
+
     if response.status == GOOD_REQUEST:
         data = json.loads(response.read().decode("utf-8"))
         try:

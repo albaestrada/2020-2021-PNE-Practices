@@ -1,0 +1,32 @@
+Test report example
+====================
+
+---> listSpecies endpoint
+
+* TEST 1:
+
+* Input:
+
+http://127.0.0.1:8080/listSpecies?limit=2
+
+* output:
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <title>Species</title>
+</head>
+<body style="background: lightskyblue">
+    <p>The total number of species in the ensembl is: 310</p>
+    <p>The limit you have selected is: 1</p>
+    <p>The names of the species are: </p>
+    <ul>
+        {% for specie in context.species: %}
+          <li>Little spotted kiwi</li>
+        {% endfor %}
+    </ul>
+    <br>
+    <a href="/">Main page</a>
+  </body>
+</html>
