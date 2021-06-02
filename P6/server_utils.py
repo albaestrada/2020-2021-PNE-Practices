@@ -43,7 +43,7 @@ def info(sequence):
     result = "\nTotal length: " + str(seq.len()) + seq.percentage()
     context = {
         "sequence": seq,
-        "operation": info,
+        "operation": "info",
         "result": result
     }
     contents = read_template_html_file("./html/operate.html").render(context=context)

@@ -97,7 +97,6 @@ class Seq:
     def read_fasta(self, filename):
         self.strbases = Seq.take_out_first_line(Path(filename).read_text())
 
-
     def percentage_base(self, base):
         if self.strbases == "NULL" or self.strbases == "ERROR":
             return 0

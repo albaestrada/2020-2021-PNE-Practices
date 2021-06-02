@@ -12,7 +12,7 @@ PORT = 6123
 c = Client(IP, PORT)
 
 s = Seq()
-s.read_fasta("./P2/FRAT1.txt")
+s.read_fasta("FRAT1.txt")
 count = 0
 i = 0
 while i < len(s.strbases) and count < 5:
